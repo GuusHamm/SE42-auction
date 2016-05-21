@@ -1,13 +1,15 @@
 package auction.service;
 
-import java.util.List;
-import static org.junit.Assert.*;
-
-
+import auction.domain.User;
+import auction.service.util.DatabaseCleaner;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import auction.domain.User;
+import java.sql.SQLException;
+import java.util.List;
+
+import static org.junit.Assert.*;
 
 public class RegistrationMgrTest {
 
@@ -18,14 +20,30 @@ public class RegistrationMgrTest {
         registrationMgr = new RegistrationMgr();
     }
 
-    @Test
+	@After
+	public void tearDown() throws Exception {
+		DatabaseCleaner cleaner = new DatabaseCleaner(registrationMgr.getEntityManager());
+		try {
+			cleaner.clean();
+		}
+		catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+	}
+
+
+	@Test
     public void registerUser() {
-        User user1 = registrationMgr.registerUser("xxx1@yyy");
-        assertTrue(user1.getEmail().equals("xxx1@yyy"));
-        User user2 = registrationMgr.registerUser("xxx2@yyy2");
-        assertTrue(user2.getEmail().equals("xxx2@yyy2"));
-        User user2bis = registrationMgr.registerUser("xxx2@yyy2");
-        assertSame(user2bis, user2);
+	    String email1 = "xxx1@yyy";
+	    String email2 = "xxx2@yyy2";
+
+        User user1 = registrationMgr.registerUser(email1);
+        User user2 = registrationMgr.registerUser(email2);
+	    User user2bis = registrationMgr.registerUser(email2);
+
+	    assertTrue(user1.getEmail().equals("xxx1@yyy"));
+	    assertTrue(user2.getEmail().equals("xxx2@yyy2"));
+	    assertEquals(user2bis.getId(), user2.getId());
         //geen @ in het adres
         assertNull(registrationMgr.registerUser("abc"));
     }

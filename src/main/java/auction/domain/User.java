@@ -20,7 +20,6 @@ public class User implements Serializable {
 
 	public User(String email) {
 		this.email = email;
-
 	}
 
 	public User() {

@@ -1,16 +1,23 @@
 package auction.service;
 
-import java.util.*;
-import auction.domain.User;
-import auction.dao.UserDAOCollectionImpl;
 import auction.dao.UserDAO;
+import auction.dao.UserDAOJPAImpl;
+import auction.domain.User;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import java.util.List;
 
 public class RegistrationMgr {
 
     private UserDAO userDAO;
+	private final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("auctionPU");
+	private EntityManager entityManager;
 
     public RegistrationMgr() {
-        userDAO = new UserDAOCollectionImpl();
+	    this.entityManager = entityManagerFactory.createEntityManager();
+        userDAO = new UserDAOJPAImpl(entityManager);
     }
 
     /**
@@ -29,8 +36,14 @@ public class RegistrationMgr {
         if (user != null) {
             return user;
         }
-        user = new User(email);
-        userDAO.create(user);
+
+	    try {
+		    user = new User(email);
+		    userDAO.create(user);
+
+	    }catch (Exception e){
+		    entityManager.getTransaction().rollback();
+	    }
         return user;
     }
 
@@ -50,4 +63,8 @@ public class RegistrationMgr {
     public List<User> getUsers() {
         return userDAO.findAll();
     }
+
+	public EntityManager getEntityManager() {
+		return entityManager;
+	}
 }
