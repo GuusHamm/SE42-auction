@@ -41,7 +41,10 @@ public class UserDAOJPAImpl implements UserDAO {
             throw new IllegalArgumentException();
         }
 
-        entityManager.merge(user);
+	    entityManager.getTransaction().begin();
+
+	    entityManager.merge(user);
+
 	    entityManager.getTransaction().commit();
     }
 
