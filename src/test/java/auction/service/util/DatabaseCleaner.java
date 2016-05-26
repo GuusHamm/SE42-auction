@@ -11,9 +11,10 @@ import java.sql.SQLException;
 public class DatabaseCleaner {
 
 	private static final Class<?>[] ENTITY_TYPES = {
-			User.class,
+			Bid.class,
 			Item.class,
-			Bid.class
+			User.class
+
 	};
 	private final EntityManager em;
 

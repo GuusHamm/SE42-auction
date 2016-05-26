@@ -64,7 +64,10 @@ public class ItemDOAJPAImpl implements ItemDAO{
 
 	@Override
 	public List<Item> findByDescription(String description) {
-		return entityManager.createNamedQuery("Item.findByDescription",Item.class).getResultList();
+		Query query = entityManager.createNamedQuery("Item.findByDescription", Item.class);
+		query.setParameter("description", description);
+
+		return query.getResultList();
 	}
 
 	@Override
