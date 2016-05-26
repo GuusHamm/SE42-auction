@@ -1,17 +1,20 @@
 package auction.service;
 
-import static org.junit.Assert.*;
-
-import nl.fontys.util.Money;
-
-import org.junit.Before;
-import org.junit.Test;
-
 import auction.domain.Bid;
 import auction.domain.Category;
 import auction.domain.Item;
 import auction.domain.User;
-import java.util.ArrayList;
+import auction.service.util.DatabaseCleaner;
+import nl.fontys.util.Money;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class AuctionMgrTest {
 
@@ -24,6 +27,17 @@ public class AuctionMgrTest {
         registrationMgr = new RegistrationMgr();
         auctionMgr = new AuctionMgr();
         sellerMgr = new SellerMgr();
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        DatabaseCleaner cleaner = new DatabaseCleaner(registrationMgr.getEntityManager());
+        try {
+            cleaner.clean();
+        }
+        catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Test
@@ -53,10 +67,10 @@ public class AuctionMgrTest {
         Item item1 = sellerMgr.offerItem(seller3, cat, omsch);
         Item item2 = sellerMgr.offerItem(seller4, cat, omsch);
 
-        ArrayList<Item> res = (ArrayList<Item>) auctionMgr.findItemByDescription(omsch2);
+        List<Item> res = auctionMgr.findItemByDescription(omsch2);
         assertEquals(0, res.size());
 
-        res = (ArrayList<Item>) auctionMgr.findItemByDescription(omsch);
+        res =  auctionMgr.findItemByDescription(omsch);
         assertEquals(2, res.size());
 
     }
