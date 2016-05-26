@@ -39,7 +39,13 @@ public class SellerMgr {
         Item databaseItem = itemDOAJPA.find(item.getId());
         if (databaseItem.getHighestBid() == null) {
             itemDOAJPA.remove(databaseItem);
-            return true;
+
+            //To see if it's actually removed.
+            if (itemDOAJPA.find(databaseItem.getId()) != null) {
+                return false;
+            } else {
+                return true;
+            }
         }
         return false;
     }

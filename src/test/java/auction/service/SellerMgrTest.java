@@ -2,8 +2,10 @@ package auction.service;
 
 import static org.junit.Assert.*;
 
+import auction.service.util.DatabaseCleaner;
 import nl.fontys.util.Money;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,6 +14,10 @@ import org.junit.Test;
 import auction.domain.Category;
 import auction.domain.Item;
 import auction.domain.User;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SellerMgrTest {
 
@@ -24,6 +30,17 @@ public class SellerMgrTest {
         registrationMgr = new RegistrationMgr();
         auctionMgr = new AuctionMgr();
         sellerMgr = new SellerMgr();
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        DatabaseCleaner cleaner = new DatabaseCleaner(registrationMgr.getEntityManager());
+        try {
+            cleaner.clean();
+        }
+        catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
     /**
@@ -54,10 +71,18 @@ public class SellerMgrTest {
         Category cat = new Category("cat1");
         
             // revoke before bidding
+        System.out.println("Before anything size: " + auctionMgr.findItemByDescription(omsch).size() + System.lineSeparator());
         Item item1 = sellerMgr.offerItem(seller, cat, omsch);
+
+        System.out.println("After Offer size: " + auctionMgr.findItemByDescription(omsch).size() + System.lineSeparator());
+
         boolean res = sellerMgr.revokeItem(item1);
         assertTrue(res);
-        int count = auctionMgr.findItemByDescription(omsch).size();
+
+        System.out.println("After Revoke size: " + auctionMgr.findItemByDescription(omsch).size() + System.lineSeparator());
+
+        List<Item> itemsFromDatabase = auctionMgr.findItemByDescription(omsch);
+        int count = itemsFromDatabase.size();
         assertEquals(0, count);
         
             // revoke after bid has been made

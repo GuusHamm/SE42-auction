@@ -97,7 +97,9 @@ public class Item implements Comparable {
         result = 21 * result + seller.hashCode();
         result = 21 * result + category.hashCode();
         result = 21 * result + description.hashCode();
-        result = 21 * result + highest.hashCode();
+		if (highest != null) {
+			result = 21 * result + highest.hashCode();
+		}
         return result;
     }
 }
