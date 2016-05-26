@@ -19,7 +19,7 @@ public class User implements Serializable {
 	private long Id;
 	@Column(unique = true)
 	private String email;
-	private Set<Item> offeredItems
+	private Set<Item> offeredItems;
 
 	public User(String email) {
 		this.email = email;
