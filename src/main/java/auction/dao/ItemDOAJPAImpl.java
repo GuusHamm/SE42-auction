@@ -4,6 +4,7 @@ import auction.domain.Item;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 import java.util.List;
 
@@ -13,8 +14,8 @@ import java.util.List;
 public class ItemDOAJPAImpl implements ItemDAO{
 	private final EntityManager entityManager;
 
-	public ItemDOAJPAImpl(EntityManager entityManager) {
-		this.entityManager = entityManager;
+	public ItemDOAJPAImpl() {
+		this.entityManager = Persistence.createEntityManagerFactory("auctionPU").createEntityManager();
 	}
 
 	@Override
