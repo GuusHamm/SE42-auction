@@ -55,18 +55,37 @@ public class Item implements Comparable {
         return highest;
     }
 
-    public int compareTo(Object arg0) {
-        //TODO
-        return -1;
+	/**
+     * Compares this object to the parameter object
+     * @param other The object which you want to compare it with
+     * @return 0 if the object has the same ID, return 1 if the object is an item with another id and return -1 when it's not an Item
+     */
+    public int compareTo(Object other) {
+        if (other instanceof Item) {
+            if (this.id == ((Item) other).getId()) {
+                return 0;
+            } else {
+                return 1;
+            }
+        } else {
+            return -1;
+        }
     }
 
     public boolean equals(Object o) {
-        //TODO
-        return false;
+        if (o instanceof Item) {
+            return this == o;
+        } else {
+            return false;
+        }
     }
 
     public int hashCode() {
-        //TODO
-        return 0;
+        int result = id.hashCode();
+        result = 21 * result + seller.hashCode();
+        result = 21 * result + category.hashCode();
+        result = 21 * result + description.hashCode();
+        result = 21 * result + highest.hashCode();
+        return result;
     }
 }
