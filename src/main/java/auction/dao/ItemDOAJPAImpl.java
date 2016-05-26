@@ -51,7 +51,7 @@ public class ItemDOAJPAImpl implements ItemDAO{
 
 		try {
 			item = (Item) query.getSingleResult();
-		}catch (NoResultException e{
+		}catch (NoResultException e){
 			item = null;
 		}
 		return item;
