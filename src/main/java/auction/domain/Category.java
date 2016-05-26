@@ -1,5 +1,8 @@
 package auction.domain;
 
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class Category {
 
     private String description;

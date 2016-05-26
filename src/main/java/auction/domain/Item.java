@@ -16,10 +16,19 @@ public class Item implements Comparable {
     @Id
     @GeneratedValue
     private Long id;
-    private User seller;
-    private Category category;
-    private String description;
-    private Bid highest;
+	@OneToOne
+	private User seller;
+
+	@Embedded
+	@AttributeOverrides({
+			@AttributeOverride(name = "description",
+					column = @Column(name = "c_description"))
+	})
+	private Category category;
+
+	private String description;
+	@OneToOne
+	private Bid highest;
 
     public Item(User seller, Category category, String description) {
         this.seller = seller;
