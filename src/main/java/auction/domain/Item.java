@@ -6,7 +6,10 @@ import javax.persistence.*;
 
 @Entity
 @NamedQueries({
-        @NamedQuery(name="Item.count", query = "select count(i) from Item as i")
+        @NamedQuery(name="Item.count", query = "select count(i) from Item as i"),
+		@NamedQuery(name = "Item.find", query = "select i from Item as i where i.id = :id"),
+		@NamedQuery(name = "Item.findByDescription", query = "select i from Item as i where i.description = :description"),
+		@NamedQuery(name = "Item.getAll", query = "select i from Item as i")
 })
 public class Item implements Comparable {
 
