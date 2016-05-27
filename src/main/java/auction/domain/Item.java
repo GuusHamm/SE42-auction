@@ -16,7 +16,8 @@ public class Item implements Comparable {
     @Id
     @GeneratedValue
     private Long id;
-	@OneToOne
+	
+	@ManyToOne
 	private User seller;
 
 	@Embedded
