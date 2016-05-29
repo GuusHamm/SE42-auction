@@ -25,9 +25,13 @@ public class FurnitureAndPaintingTest {
     }
 
 //    Database without @Inheritance
-//    Bid, item, sequence, users
+//    bid, item, sequence, users
 
+//    Database with @Inheritance Joined
+//    bid, furniture item, painting, sequence, users
 
+//    Database with @Inheritance SINGLE_TABLE
+//    bid, item, sequence, users
 
     @Before
     public void setUp() throws Exception {
