@@ -12,7 +12,7 @@ import javax.persistence.*;
 		@NamedQuery(name = "Item.findByDescription", query = "select i from Item as i where i.description = :description"),
 		@NamedQuery(name = "Item.getAll", query = "select i from Item as i")
 })
-public class Item implements Comparable {
+public abstract class Item implements Comparable {
 
     @Id
     @GeneratedValue

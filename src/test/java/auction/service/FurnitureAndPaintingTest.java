@@ -33,6 +33,21 @@ public class FurnitureAndPaintingTest {
 //    Database with @Inheritance SINGLE_TABLE
 //    bid, item, sequence, users
 
+
+
+    //After abtract
+
+    //Database without @Inheritance
+    //bid, item, sequence, users
+
+    //Database with @Inheritance Joined
+    //bid, furniture item, painting, sequence, users
+
+    //Database with @Inheritance SINGLE_TABLE
+    //bid, item, sequence, users
+
+    //De resultaten zijn voor alle 3 gelijk.
+
     @Before
     public void setUp() throws Exception {
         registrationMgr = new RegistrationMgr();
@@ -65,16 +80,16 @@ public class FurnitureAndPaintingTest {
         it.next();
         assertFalse(it.hasNext());
 
-        //de volgende code verwijderen als Item abstract is
-        Item item3 = sellerMgr.offerItem(u1, new Category("boek"), "The science of Discworld");
-        it = registrationMgr.getUser(iemand1).getOfferedItems();
-        assertTrue(it.hasNext());
-        it.next();
-        assertTrue(it.hasNext());
-        it.next();
-        assertTrue(it.hasNext());
-        it.next();
-        assertFalse(it.hasNext());
+//        //de volgende code verwijderen als Item abstract is
+//        Item item3 = sellerMgr.offerItem(u1, new Category("boek"), "The science of Discworld");
+//        it = registrationMgr.getUser(iemand1).getOfferedItems();
+//        assertTrue(it.hasNext());
+//        it.next();
+//        assertTrue(it.hasNext());
+//        it.next();
+//        assertTrue(it.hasNext());
+//        it.next();
+//        assertFalse(it.hasNext());
 
         assertNull(furniture1.getHighestBid());
         Bid bid = auctionMgr.newBid(furniture1, u2, new Money(150000, Money.EURO));

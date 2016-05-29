@@ -19,10 +19,13 @@ public class SellerMgr {
 	 * en met de beschrijving description
 	 */
 	public Item offerItem(User seller, Category cat, String description) {
-		Item item = new Item(seller, cat, description);
-		itemDOAJPA.create(item);
-		seller.addItemToUser(item);
-		return item;
+        //Change this back after running the specific tests
+
+//		Item item = new Item(seller, cat, description);
+//		itemDOAJPA.create(item);
+//		seller.addItemToUser(item);
+//		return item;
+        return null;
 	}
 
 
