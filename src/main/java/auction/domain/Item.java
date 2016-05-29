@@ -33,7 +33,7 @@ public class Item implements Comparable {
 	private Category category;
 
 	private String description;
-	@OneToOne(cascade = CascadeType.PERSIST)
+	@OneToOne(cascade = CascadeType.PERSIST, mappedBy = "bettedOnItem")
 	private Bid highest;
 
     public Item(User seller, Category category, String description) {
