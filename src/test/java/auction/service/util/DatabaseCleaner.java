@@ -25,6 +25,8 @@ public class DatabaseCleaner {
 	public void clean() throws SQLException {
 		em.getTransaction().begin();
 
+		em.flush();
+
 		for (Class<?> entityType : ENTITY_TYPES) {
 			deleteEntities(entityType);
 		}

@@ -32,7 +32,7 @@ public class SellerMgrTest {
         sellerMgr = new SellerMgr();
     }
 
-    @After
+
     public void tearDown() throws Exception {
         DatabaseCleaner cleaner = new DatabaseCleaner(registrationMgr.getEntityManager());
         try {
@@ -55,6 +55,12 @@ public class SellerMgrTest {
         Item item1 = sellerMgr.offerItem(user1, cat, omsch);
         assertEquals(omsch, item1.getDescription());
         assertNotNull(item1.getId());
+
+        try {
+            tearDown();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**

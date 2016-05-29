@@ -20,15 +20,20 @@ public class Item implements Comparable {
 	@ManyToOne
 	private User seller;
 
+	public void setSeller(User seller) {
+		this.seller = seller;
+	}
+
 	@Embedded
 	@AttributeOverrides({
 			@AttributeOverride(name = "description",
 					column = @Column(name = "c_description"))
 	})
+	@OneToOne(cascade = CascadeType.PERSIST)
 	private Category category;
 
 	private String description;
-	@OneToOne
+	@OneToOne(cascade = CascadeType.PERSIST)
 	private Bid highest;
 
     public Item(User seller, Category category, String description) {

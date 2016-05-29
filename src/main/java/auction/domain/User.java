@@ -56,6 +56,7 @@ public class User implements Serializable {
 
 	private void addItem(Item item) {
 		offeredItems.add(item);
+		item.setSeller(this);
 	}
 
 	public void addItemToUser(Item item){
