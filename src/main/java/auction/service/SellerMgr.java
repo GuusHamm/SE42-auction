@@ -25,19 +25,7 @@ public class SellerMgr {
         return item;
     }
 
-    public Furniture offerFurniture(User seller, Category cat, String description, String material) {
-        Furniture furniture = new Furniture(seller, cat, description, material);
-        itemDOAJPA.create(furniture);
-        seller.addItemToUser(furniture);
-        return furniture;
-    }
 
-    public Painting offerPainting(User seller, Category cat, String description, String title, String painter) {
-        Painting painting = new Painting(seller, cat, description, title, painter);
-        itemDOAJPA.create(painting);
-        seller.addItemToUser(painting);
-        return painting;
-    }
     
      /**
      * @param item

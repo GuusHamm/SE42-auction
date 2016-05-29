@@ -86,8 +86,12 @@ public class ItemsFromSellerTest {
          */
         
         
-        assertNotSame(user3, userWithItem);
+//        assertNotSame(user3, userWithItem);
         assertEquals(user3, userWithItem);
+        /*
+        The first one was true because they were referencing to the same object, the equals will ofcourse succeed because they are the same.
+
+         */
 
     }
 
