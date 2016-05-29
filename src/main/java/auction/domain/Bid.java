@@ -21,6 +21,7 @@ public class Bid {
     private User buyer;
     private Money amount;
 
+
 	@OneToOne
 	@NotNull
 	private Item bettedOnItem;
@@ -28,9 +29,18 @@ public class Bid {
 	public Bid() {
 	}
 
-	public Bid(User buyer, Money amount) {
+	public Bid(User buyer, Money amount, Item bettedOnItem) {
 		this.buyer = buyer;
 		this.amount = amount;
+		this.bettedOnItem = bettedOnItem;
+	}
+
+	public void setBettedOnItem(Item bettedOnItem) {
+		this.bettedOnItem = bettedOnItem;
+	}
+
+	public Item getBettedOnItem() {
+		return bettedOnItem;
 	}
 
 	public FontysTime getTime() {

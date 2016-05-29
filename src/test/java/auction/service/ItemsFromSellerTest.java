@@ -1,9 +1,11 @@
 package auction.service;
 
+import auction.domain.Bid;
 import auction.domain.Category;
 import auction.domain.Item;
 import auction.domain.User;
 import auction.service.util.DatabaseCleaner;
+import nl.fontys.util.Money;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -134,6 +136,36 @@ public class ItemsFromSellerTest {
         assertTrue(it30.hasNext());
         it30.next();
         assertTrue(it30.hasNext());
+    }
+
+    @Test
+    public void newBidTest() {
+        //Creating an item
+        Category category = new Category("testCat");
+        User user = registrationMgr.registerUser("testUser@test.nl");
+        Item item = sellerMgr.offerItem(user, category, "testDescription");
+
+        assertEquals("User has not offered the item", 1, user.numberOfOfferdItems());
+        assertNull("Highest bid should be null at this point", item.getHighestBid());
+
+        Bid bid = auctionMgr.newBid(item, user, new Money(10, "Euro"));
+
+        //After placing the bet, check if it's actually there
+        assertNotNull("Item does not have a bet", item.getHighestBid());
+        assertEquals("The item doesn't equal the item of the bet", item, bid.getBettedOnItem());
+        assertEquals("The better isn't the same", user, bid.getBuyer());
+        assertEquals("The money does not match", bid.getAmount(), new Money(10, "Euro"));
+
+        Bid bid1 = auctionMgr.newBid(item, user, new Money(20, "Euro"));
+        assertEquals("Check if the new bid has the correct money", bid1.getAmount(), new Money(20, "Euro"));
+        assertEquals("Check the buyer", bid1.getBuyer(), user);
+        assertEquals("This bet should be on the item", bid1.getBettedOnItem(), item);
+
+        Bid bid2 = auctionMgr.newBid(item, user, new Money(15, "Euro"));
+        assertNull("As bid1 is higher, bid2 should not be placed so it should be null", bid2);
+        assertEquals("Check if bid 2 hasnt come through by some magical accident", item.getHighestBid().getAmount(), new Money(20, "Euro"));
+
 
     }
+
 }
