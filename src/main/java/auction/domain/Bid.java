@@ -54,4 +54,8 @@ public class Bid {
     public Money getAmount() {
         return amount;
     }
+
+	public Long getId() {
+		return id;
+	}
 }

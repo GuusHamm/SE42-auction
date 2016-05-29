@@ -5,6 +5,7 @@ import nl.fontys.util.Money;
 import javax.persistence.*;
 
 @Entity
+@Inheritance (strategy = InheritanceType.JOINED)
 @NamedQueries({
         @NamedQuery(name="Item.count", query = "select count(i) from Item as i"),
 		@NamedQuery(name = "Item.find", query = "select i from Item as i where i.id = :id"),
