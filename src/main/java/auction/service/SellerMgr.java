@@ -1,9 +1,7 @@
 package auction.service;
 
 import auction.dao.ItemDOAJPAImpl;
-import auction.domain.Category;
-import auction.domain.Item;
-import auction.domain.User;
+import auction.domain.*;
 
 public class SellerMgr {
 
@@ -25,6 +23,20 @@ public class SellerMgr {
         itemDOAJPA.create(item);
         seller.addItemToUser(item);
         return item;
+    }
+
+    public Furniture offerFurniture(User seller, Category cat, String description, String material) {
+        Furniture furniture = new Furniture(seller, cat, description, material);
+        itemDOAJPA.create(furniture);
+        seller.addItemToUser(furniture);
+        return furniture;
+    }
+
+    public Painting offerPainting(User seller, Category cat, String description, String title, String painter) {
+        Painting painting = new Painting(seller, cat, description, title, painter);
+        itemDOAJPA.create(painting);
+        seller.addItemToUser(painting);
+        return painting;
     }
     
      /**
