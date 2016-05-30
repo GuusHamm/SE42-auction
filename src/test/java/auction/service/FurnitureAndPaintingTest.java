@@ -32,6 +32,9 @@ public class FurnitureAndPaintingTest {
 
 //    Database with @Inheritance SINGLE_TABLE
 //    bid, item, sequence, users
+    //Database with @Inheritance TABLE_PER_CLASS -- Niet getest aangezien Find verkeerd gaat, oplossing is findFurniture maken
+    //bid, furniture, item, painting, sequence, users
+
 
 
 
@@ -45,6 +48,9 @@ public class FurnitureAndPaintingTest {
 
     //Database with @Inheritance SINGLE_TABLE
     //bid, item, sequence, users
+
+    //Database with @Inheritance TABLE_PER_CLASS -- Niet getest aangezien Find verkeerd gaat, oplossing is findFurniture maken
+    //bid, furniture, item, painting, sequence, users
 
     //De resultaten zijn voor alle 3 gelijk.
 
